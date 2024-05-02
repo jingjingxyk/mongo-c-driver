@@ -817,7 +817,6 @@ if (BUILD_STATIC_LIBS)
    endif ()
 endif ()
 
-<<<<<<< HEAD
 if (BUILD_SHARED_LIBS)
    add_library (mongoc_shared SHARED ${SOURCES} ${HEADERS} ${HEADERS_FORWARDING})
    if(WIN32)
