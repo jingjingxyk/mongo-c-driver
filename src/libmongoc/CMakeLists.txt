@@ -906,7 +906,10 @@ if (BUILD_STATIC_LIBS)
           MONGOC_COMPILATION
           ${KMS_MSG_DEFINITIONS}
           MCOMMON_NAME_PREFIX=_mongoc_mcommon
-=======
+      )
+   endif()
+endif()
+
 set_property(
    SOURCE ${PROJECT_SOURCE_DIR}/src/mongoc/mongoc-cyrus.c
    APPEND PROPERTY COMPILE_DEFINITIONS
@@ -1412,12 +1415,10 @@ file (COPY ${PROJECT_SOURCE_DIR}/tests/release_files DESTINATION ${PROJECT_BINAR
 set (TARGETS_TO_INSTALL)
 
 if (MONGOC_ENABLE_STATIC_INSTALL)
-   set (TARGETS_TO_INSTALL mongoc_static)
    list (APPEND TARGETS_TO_INSTALL mongoc_static)
 endif ()
 
 if (ENABLE_SHARED)
-   set (TARGETS_TO_INSTALL mongoc_shared)
    list (APPEND TARGETS_TO_INSTALL mongoc_shared)
 endif ()
 
