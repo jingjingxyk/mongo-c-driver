@@ -1087,7 +1087,8 @@ endif ()
 if (ENABLE_SHM_COUNTERS)
    install (TARGETS mongoc-stat
             EXPORT mongoc_targets
-            RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
+            RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
+   )
 endif ()
 
 set (test-libmongoc-sources
