@@ -1034,31 +1034,31 @@ if (MONGOC_ENABLE_STATIC_BUILD)
       VERSION 0.0.0
       OUTPUT_NAME "${MONGOC_OUTPUT_BASENAME}-static-${MONGOC_API_VERSION}"
       pkg_config_REQUIRES "libbson-static-1.0"
-      )
-      if (USE_BUNDLED_UTF8PROC)
-       target_compile_definitions (mongoc_static PRIVATE UTF8PROC_STATIC)
-      endif ()
-      # Several directories in the source and build trees contain headers we would like
-      # include via relative reference, but they all end up in the same install path
-      target_include_directories (
-       mongoc_static
-       PUBLIC
-          $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/src>
-          $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/src/mongoc>
-          $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>
-          $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src/mongoc>
-          $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/../../src/common>
-          $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/../../src>
-          $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/../../src/common>
-      )
-      set_target_properties (mongoc_static PROPERTIES
-       VERSION 0.0.0
-       OUTPUT_NAME "${MONGOC_OUTPUT_BASENAME}-static-${MONGOC_API_VERSION}"
-       pkg_config_REQUIRES "libbson-static-1.0"
-       )
-      if(MONGOC_ENABLE_STATIC_INSTALL)
-       mongo_generate_pkg_config (mongoc_static FILENAME libmongoc-static-${MONGOC_API_VERSION}.pc INSTALL)
-      endif()
+   )
+   if (USE_BUNDLED_UTF8PROC)
+    target_compile_definitions (mongoc_static PRIVATE UTF8PROC_STATIC)
+   endif ()
+   # Several directories in the source and build trees contain headers we would like
+   # include via relative reference, but they all end up in the same install path
+   target_include_directories (
+    mongoc_static
+    PUBLIC
+       $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/src>
+       $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/src/mongoc>
+       $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>
+       $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src/mongoc>
+       $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/../../src/common>
+       $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/../../src>
+       $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/../../src/common>
+   )
+   set_target_properties (mongoc_static PROPERTIES
+    VERSION 0.0.0
+    OUTPUT_NAME "${MONGOC_OUTPUT_BASENAME}-static-${MONGOC_API_VERSION}"
+    pkg_config_REQUIRES "libbson-static-1.0"
+    )
+   if(MONGOC_ENABLE_STATIC_INSTALL)
+      mongo_generate_pkg_config (mongoc_static FILENAME libmongoc-static-${MONGOC_API_VERSION}.pc INSTALL)
+   endif()
 endif () #MONGOC_ENABLE_STATIC_BUILD
 
 if (BUILD_SHARED_LIBS)
