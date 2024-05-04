@@ -892,44 +892,6 @@ if (BUILD_SHARED_LIBS)
     mongo_generate_pkg_config(mongoc_shared INSTALL RENAME libmongoc-${MONGOC_API_VERSION}.pc)
 endif ()
 
-if (BUILD_STATIC_LIBS)
-   if (MONGOC_ENABLE_STATIC_BUILD)
-      add_library (mongoc_static STATIC ${SOURCES} ${HEADERS} ${HEADERS_FORWARDING})
-      set_target_properties (mongoc_static PROPERTIES CMAKE_CXX_VISIBILITY_PRESET hidden)
-      target_link_libraries (mongoc_static PUBLIC ${STATIC_LIBRARIES} ${BSON_STATIC_LIBRARIES} mongo::detail::c_dependencies)
-
-      if (NOT WIN32 AND ENABLE_PIC)
-       target_compile_options (mongoc_static PUBLIC -fPIC)
-       message (STATUS "Adding -fPIC to compilation of mongoc_static components")
-      endif ()
-      if(ENABLE_SRV AND RESOLVE_LIB_NAME)
-       # The static library needs to link to the resolver in pkg-config:
-       set_property(TARGET mongoc_static APPEND PROPERTY pkg_config_LIBS "-l${RESOLVE_LIB_NAME}")
-      endif()
-      if(SASL_BACKEND STREQUAL "Cyrus")
-       set_property(TARGET mongoc_static APPEND PROPERTY pkg_config_LIBS "-lsasl2")
-      endif()
-
-      set_property(TARGET mongoc_static APPEND PROPERTY pkg_config_LIBS ${${TLS_BACKEND}/pkg_config_LIBS})
-      target_include_directories (mongoc_static PRIVATE ${ZLIB_INCLUDE_DIRS})
-      target_include_directories (mongoc_static PRIVATE ${UTF8PROC_INCLUDE_DIRS})
-      target_include_directories (mongoc_static PRIVATE ${LIBMONGOCRYPT_INCLUDE_DIRECTORIES})
-
-      if (MONGOC_ENABLE_MONGODB_AWS_AUTH)
-       target_include_directories (mongoc_static PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../kms-message/src")
-      endif ()
-      target_compile_definitions (mongoc_static
-       PUBLIC
-          MONGOC_STATIC
-          ${BSON_STATIC_PUBLIC_DEFINITIONS}
-       PRIVATE
-          MONGOC_COMPILATION
-          ${KMS_MSG_DEFINITIONS}
-          MCOMMON_NAME_PREFIX=_mongoc_mcommon
-      )
-   endif() # MONGOC_ENABLE_STATIC_BUILD
-endif() # BUILD_STATIC_LIBS
-
 set_property(
    SOURCE ${PROJECT_SOURCE_DIR}/src/mongoc/mongoc-cyrus.c
    APPEND PROPERTY COMPILE_DEFINITIONS
