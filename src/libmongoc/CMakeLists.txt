@@ -903,7 +903,6 @@ set (
    "${SOURCE_DIR}/src/uthash"
 )
 
-
 if (ENABLE_SHARED)
    add_library (mongoc_shared SHARED ${SOURCES} ${HEADERS} ${HEADERS_FORWARDING})
    if(WIN32)
