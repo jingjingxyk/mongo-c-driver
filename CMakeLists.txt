@@ -41,13 +41,11 @@ endif()
 if (BUILD_STATIC_LIBS)
    set(ENABLE_STATIC ON)
    set(ENABLE_SHARED OFF)
-   set(MONGOC_ENABLE_STATIC_BUILD ON)
 endif ()
 
 if (BUILD_SHARED_LIBS)
    set(ENABLE_STATIC OFF)
    set(ENABLE_SHARED ON)
-   set(MONGOC_ENABLE_STATIC_BUILD OFF)
 endif ()
 
 # Subcomponents:
